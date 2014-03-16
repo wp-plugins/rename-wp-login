@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/plugins/rename-wp-login/
 Description: Change wp-login.php to whatever you want. It can also prevent a lot of brute force attacks.
 Author: avryl
 Author URI: http://profiles.wordpress.org/avryl/
-Version: 2.2.7
+Version: 2.3
 Text Domain: rename-wp-login
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,7 +124,7 @@ if ( defined( 'ABSPATH' )
 			if ( is_multisite()
 				&& ! function_exists( 'is_plugin_active_for_network' ) ) {
 
-			    require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 
 			}
 
@@ -257,7 +257,7 @@ if ( defined( 'ABSPATH' )
 					&& strpos( $rwl_page, 'wp-login' ) === false
 					&& ! in_array( $rwl_page, $this->forbidden_slugs() ) ) {
 
-					if ( $rwl_page === get_site_option( 'rwl_page', 'login' ) ) {
+					if ( is_multisite() && $rwl_page === get_site_option( 'rwl_page', 'login' ) ) {
 
 						delete_option( 'rwl_page' );
 
@@ -489,10 +489,23 @@ if ( defined( 'ABSPATH' )
 
 			elseif ( $pagenow === 'wp-login.php' ) {
 
-				require_once( $this->path() . 'rwl-login.php' );
+				global $wp_version;
+
+				$version = explode( '.', $wp_version );
+				$major = $version[0];
+				$minor = $version[1];
+
+				if ( file_exists( $this->path() . 'rwl-login-' . $major . '.' . $minor . '.php' ) ) {
+
+					require_once( $this->path() . 'rwl-login-' . $major . '.' . $minor . '.php' );
+
+				} else {
+
+					require_once( $this->path() . 'rwl-login-3.9.php' );
+
+				}
 
 				die;
-
 
 			}
 
