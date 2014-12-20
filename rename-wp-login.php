@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/plugins/rename-wp-login/
 Description: Change wp-login.php to whatever you want.
 Author: avryl
 Author URI: http://profiles.wordpress.org/avryl/
-Version: 2.5
+Version: 2.5.1
 Text Domain: rename-wp-login
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
