@@ -1,4 +1,4 @@
-=== Rename wp-login.php ===
+=== Rename wp-login.php (unmaintained) ===
 
 Contributors: avryl
 Tags: rename, login, wp-login, wp-login.php, custom login url
